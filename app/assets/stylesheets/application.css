@@ -13,3 +13,71 @@
  *= require_tree .
  *= require_self
  */
+
+
+#main {
+	border: 2px solid blue;
+	height: 400px;
+	width: 300px;
+	background-color: cornflowerblue;
+	overflow: auto;
+	left: 400px;
+	position: relative;
+	/*right: 0px;*/
+}
+#sprite {
+	width: 150px;
+	height: 150px;
+	margin:10px;
+	top: 20px;
+	left: 60px;
+	right: 60px;
+	position: absolute;
+	border: 2px solid black;
+}
+
+#sub {
+	border:2px solid red;
+	height: 110px;
+	position: relative;
+	width: 230px;
+	top: 180px;
+	left: 30px;
+}
+
+.sub1 {
+	position: absolute;
+	left: 0px;
+}
+
+.sub2 {
+	position: absolute;
+	right: 0px;
+}
+#container {
+	padding-left: 80px;
+	padding-right: 80px;
+}
+
+#pokemoves {
+	border: 2px solid blue;
+	height: 40px;
+	width: 230px;
+	position: relative;
+	top: 190px;
+	left: 30px;
+}
+
+.moves1 {
+	position: absolute;
+	left: 0px;
+}
+
+
+.moves2 {
+	position: absolute;
+	right: 0px;
+}
+#hp {
+	top: 30px;
+}

@@ -1,0 +1,3 @@
+class GamersController < ApplicationController
+
+end

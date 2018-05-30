@@ -1,0 +1,3 @@
+class MonmonsController < ApplicationController
+
+end

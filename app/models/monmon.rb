@@ -1,0 +1,3 @@
+class Monmon < ApplicationRecord
+
+end

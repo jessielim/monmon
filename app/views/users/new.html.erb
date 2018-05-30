@@ -1,0 +1,15 @@
+<h1>SIGN UP PAGE</h1>
+
+<%= form_for :user, html: { multipart: true }, action: :create, method: :post do |form| %>
+	<%= form.label :first_name %>
+	<%= form.text_field :first_name %>
+	<%= form.label :last_name %>
+	<%= form.text_field :last_name %>
+	<%= form.label :email %>
+	<%= form.text_field :email %>
+	<%= form.label :password %>
+	<%= form.password_field :password %>
+	<%= form.submit "Sign Up" %>
+<% end %>
+
+<%= link_to "home", "/" %>
