@@ -1,9 +1,9 @@
 class DecksController < ApplicationController
 	def newdeck
-# @check = Deck.find_by(user_id: @user.id)
+
 		@user = User.find_by(email: cookies[:email])
 		@deck = Deck.new(deck_name: params[:deck_name], user_id: @user.id)
-		byebug
+
 		respond_to do |format|
             if @deck.save
                   flash[:notice]

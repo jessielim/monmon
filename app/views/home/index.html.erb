@@ -97,16 +97,17 @@
 
 
 <script type="text/javascript">
-
+$("#play").hide();
 	$("#deckform").hide();
 	function newDeck() {
 		var promptdeck = prompt("Give a name to your deck");
 		if (promptdeck != null){
 			$("#deckform").show();
 			$("#deck_name").val(promptdeck);
+			
 		}
 	}
- 
+ $("#play").show();
 	$(function(){
 		$("#playingfield").hide();
 		$("#form").hide();
@@ -183,7 +184,7 @@
 				$("#killer").on("click",function(){
 					count -= 1;
 					console.log(count);
-
+					$("#killerhp").text(count);
 					if(count === 0){
 						$(this).prop("disabled",true);
 						$("#win").show();
