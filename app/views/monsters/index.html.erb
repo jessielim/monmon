@@ -1,11 +1,11 @@
-<h1>Your MonMon</h1>
+<h1>My MonMon</h1>
 
 <%= form_tag '/search', method: 'post', :id => 'formsearch', :class => 'form-inline my-2 my-lg-0' do %>
 <%= text_field_tag :search, params[:search], placeholder: "Search MonMon", :class => 'form-control mr-sm-2', list: "monster" %>
 <%= submit_tag "Search", :class => 'btn btn-outline-primary my-2 my-sm-0'%>
 <% end %>
 
-<%= "My MonMon" %>
+
 
 <table class="table table-hover table-dark">
 <%count = 0%>
