@@ -1,3 +1,0 @@
-class Monmon < ApplicationRecord
-
-end

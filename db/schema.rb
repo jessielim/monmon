@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531044325) do
+ActiveRecord::Schema.define(version: 20180531092340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,21 +38,6 @@ ActiveRecord::Schema.define(version: 20180531044325) do
     t.datetime "updated_at", null: false
     t.integer "level"
     t.integer "exp"
-  end
-
-  create_table "monmons", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "spd"
-    t.integer "spdef"
-    t.integer "spatk"
-    t.integer "def"
-    t.integer "atk"
-    t.integer "hp"
-    t.string "move1"
-    t.string "move2"
-    t.bigint "card_id"
-    t.index ["card_id"], name: "index_monmons_on_card_id"
   end
 
   create_table "monsters", force: :cascade do |t|
