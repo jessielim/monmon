@@ -16,11 +16,13 @@
 
 
 
-  <div id="container">
+  <div id="contain">
     <% flash.each do |key, value| %>
     <%= value %>
   <% end %>
+  <div id="container">
     <%= yield %>
+  </div>
   </div>
   </body>
 </html>

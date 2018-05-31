@@ -11,14 +11,20 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:user][:email])
-    if !@user.authenticate(params[:user][:password])
-      redirect "/"
+    if @user == nil
+    elsif !@user.authenticate(params[:user][:password])
+      redirect_to "/"
+      flash[:notice] = "Wrong email or password"
     else
       cookies[:email] = params[:user][:email]
       redirect_to "/"
+      flash[:notice] = "Signed in successful!"
     end 
+
+
   end
 
+ 
   def destroy
     cookies.clear
     redirect_to '/'

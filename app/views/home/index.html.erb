@@ -27,9 +27,9 @@
 	<br>
 	<p id = "promptdeck"></p>
 
-
+<% if @deck.present? %>
 	<button id="play">Start Play!</button>
-
+<% end %>
 	<%= form_tag("/obtain_card", method: "post", :id => 'form') do %>
 
 		<%= label_tag(:q, "Search for:") %>
@@ -49,6 +49,7 @@
 			<%= text_field_tag(:atk) %>
 			<%= label_tag :hp %>
 			<%= text_field_tag(:hp) %>
+
 			<%= label_tag :move_1 %>
 			<%= text_field_tag(:move1) %>
 			<%= label_tag :move_2 %>
@@ -97,18 +98,19 @@
 
 
 <script type="text/javascript">
-$("#play").hide();
+
 	$("#deckform").hide();
 	function newDeck() {
 		var promptdeck = prompt("Give a name to your deck");
 		if (promptdeck != null){
 			$("#deckform").show();
 			$("#deck_name").val(promptdeck);
-			
+			// $("#play").show();
 		}
 	}
- $("#play").show();
+
 	$(function(){
+
 		$("#playingfield").hide();
 		$("#form").hide();
 		var $mon = $('#pokemoves div');
@@ -117,7 +119,7 @@ $("#play").hide();
 		var $mon3 = $('.formstats')
 		var $monname = $("#pokename");
 		var $sprite = $("#sprite");
-
+	
 		$("#play").on("click", function(play){
 			$("#playingfield").show();
 			$("#main").hide();
