@@ -1,3 +1,7 @@
 class Monster < ApplicationRecord
-	belongs_to :card
+	include PgSearch
+	belongs_to :deck
+
+	pg_search_scope :search_by_name, :against => :name
+
 end

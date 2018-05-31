@@ -1,0 +1,12 @@
+<h1>SIGN IN page</h1>
+
+<%= form_for :user, html: { multipart: true }, method: :post do |form| %>
+
+	<%= form.label :email %>
+	<%= form.text_field :email %>
+	<%= form.label :password %>
+	<%= form.password_field :password %>
+	<%= form.submit "Log in" %>
+<% end %>
+
+<%= link_to "home", "/" %>

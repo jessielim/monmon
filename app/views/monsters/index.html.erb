@@ -1,0 +1,39 @@
+<h1>Your MonMon</h1>
+
+<%= form_tag '/search', method: 'post', :id => 'formsearch', :class => 'form-inline my-2 my-lg-0' do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search MonMon", :class => 'form-control mr-sm-2', list: "monster" %>
+<%= submit_tag "Search", :class => 'btn btn-outline-primary my-2 my-sm-0'%>
+<% end %>
+
+<%= "My MonMon" %>
+
+<table class="table table-hover table-dark">
+<%count = 0%>
+  	<th></th>
+      <td colspan="2" class="bg-danger"> Name </td>
+      <td colspan="2" class="bg-danger"> Speed </td>
+      <td colspan="2" class="bg-danger"> Sp Defense </td>
+      <td colspan="2" class="bg-danger"> Sp. Attack </td>
+      <td colspan="2" class="bg-danger"> Defense </td>
+      <td colspan="2" class="bg-danger"> Attack </td>
+      <td colspan="2" class="bg-danger"> HP </td>
+      <td colspan="2" class="bg-danger"> Moveset 1 </td>
+      <td colspan="2" class="bg-danger"> Moveset 2</td>
+    <tr>
+  <% @monster_s.order('name asc').each do |monmon| %>
+
+       <th>MonMon <%= count += 1%></th>
+   	  <td colspan="2" class="bg-info"><%= monmon.name %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.spd %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.spdef %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.spatk %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.def %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.atk %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.hp %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.move1 %></td>
+      <td colspan="2" class="bg-dark"><%= monmon.move2 %></td>
+    </tr>
+
+  <% end %>
+</table>
+<%= link_to "Home", "/" %>

@@ -1,60 +1,62 @@
-<head>
-  <script  src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
-
-<% if cookies[:email]!=nil %>
-
-<%= csrf_meta_tag %>
-<h1>Welcome to Monmon</h1>
-<p>Signed in as, <%= cookies[:email] %></p>
-<%= link_to "Sign Out", "/sign_out"%> 
-
-
-<%= @user.first_name %>
-<br>
-<% if @check == nil %>
-	<button onclick="newDeck()">Create new Deck</button>
-	<%= form_tag("/new_deck", method: "post", :id => 'deckform') do %>
-	<%= label_tag :deck_name %>
-	<%= text_field_tag :name %>
-	 <%= submit_tag "Save" %>
-	<% end %>
+<% if cookies[:email]==nil%>
+	<h1>Welcome to MonMon</h1>
+	<%= link_to "Sign in with Google", "/auth/google_oauth2" %>
+	<br>
+	<%= link_to "Log in", "/sign_in"%>
+	<br>
+	<%= link_to "Sign up", "/sign_up"%>
 <% else %>
-	<%= @check.name %>
-<% end %>
-<br>
+
+	<%= csrf_meta_tag %>
+	<h1>Welcome to Monmon</h1>
+	<p>Signed in as, <%= cookies[:email] %></p>
+	<%= link_to "Sign Out", "/sign_out"%> 
+	<br>
+
+	<% if @deck != nil %>
+		<%= "Deck: "%>
+		<%= link_to @deck.deck_name, "/search" %>
+	<% else %>
+		<button onclick="newDeck()">Create new Deck</button>
+		<%= form_tag("/new_deck", method: "post", :id => 'deckform') do %>
+		<%= label_tag :deck_name %>
+		<%= text_field_tag :deck_name %>
+		<%= submit_tag "Save" %>
+		<% end %>
+	<% end %>
+	<br>
+	<p id = "promptdeck"></p>
 
 
-<button id="play">Start Play!</button>
+	<button id="play">Start Play!</button>
 
-<%= form_tag("/obtain_card", method: "post", :id => 'form') do %>
+	<%= form_tag("/obtain_card", method: "post", :id => 'form') do %>
 
-  <%= label_tag(:q, "Search for:") %>
-  <%= label_tag :name %>
-  <%= text_field_tag(:name) %>
-<div class="formstats">
-<%= label_tag :speed %>
-  <%= text_field_tag(:spd) %>
-<%= label_tag :sp_def %>
-  <%= text_field_tag(:spdef) %>
-<%= label_tag :sp_atk %>
-  <%= text_field_tag(:spatk) %>
+		<%= label_tag(:q, "Search for:") %>
+		<%= label_tag :name %>
+		<%= text_field_tag(:name) %>
+		<div class="formstats">
+			<%= label_tag :speed %>
+			<%= text_field_tag(:spd) %>
+			<%= label_tag :sp_def %>
+			<%= text_field_tag(:spdef) %>
+			<%= label_tag :sp_atk %>
+			<%= text_field_tag(:spatk) %>
 
-<%= label_tag :def %>
-  <%= text_field_tag(:def) %>
-<%= label_tag :atk %>
-  <%= text_field_tag(:atk) %>
-<%= label_tag :hp %>
-  <%= text_field_tag(:hp) %>
-<%= label_tag :move_1 %>
-  <%= text_field_tag(:move1) %>
-<%= label_tag :move_2 %>
-  <%= text_field_tag(:move2) %>
-  </div>
-   <!-- <button id="card">Display</button> -->
-   <%= submit_tag "GET" %>
-<% end %>
+			<%= label_tag :def %>
+			<%= text_field_tag(:def) %>
+			<%= label_tag :atk %>
+			<%= text_field_tag(:atk) %>
+			<%= label_tag :hp %>
+			<%= text_field_tag(:hp) %>
+			<%= label_tag :move_1 %>
+			<%= text_field_tag(:move1) %>
+			<%= label_tag :move_2 %>
+			<%= text_field_tag(:move2) %>
+		</div>
+	<button id="card">GET</button>
+
+	<% end %>
 
 <div id="playingfield">
 	<p>Select a pokemon to get a card!</p>
@@ -93,22 +95,15 @@
 	<button id="win">Win the card!</button>
 </div>
 
-<p id = "promptdeck"></p>
 
 <script type="text/javascript">
-
 
 	$("#deckform").hide();
 	function newDeck() {
 		var promptdeck = prompt("Give a name to your deck");
 		if (promptdeck != null){
-			// $("#deckinput").val(promptdeck);
-	// document.getElementById("promptdeck").innerHTML = promptdeck
-	$("#deckform").show();
-	$("#name").val(promptdeck)
-			// $.post("/new_deck", {name: promptdeck},function(){
-
-			// })
+			$("#deckform").show();
+			$("#deck_name").val(promptdeck);
 		}
 	}
  
@@ -140,7 +135,6 @@
 				newBtn.name = data.results[i].name;
 				newBtn.innerHTML = data.results[i].name;
 				newBtn.onclick = function(event){
-					// $(".block").show(500);
 					$("#main").show(500);
 					$("#sub").show(1000);
 					$("#pokemoves").show(1000);
@@ -173,36 +167,25 @@
 				$mon.each(function(index){
 					$(this).text(st.moves[Math.floor(Math.random()*st.moves.length)].move.name);
 				})
-
-				for(i = 0; i < st.stats.length; i++){
 					$("#spd").val(st.stats[0].base_stat);
 					$("#spdef").val(st.stats[1].base_stat);
 					$("#spatk").val(st.stats[2].base_stat);
 					$("#def").val(st.stats[3].base_stat);
 					$("#atk").val(st.stats[4].base_stat);
 					$("#hp").val(st.stats[5].base_stat);
-				}
 
-				for(i = 0; i < $mon.length; i++){
-					var moves1 = $("#move1").val($("#pokemoves div")[0].textContent);
-					// console.log($("#pokemoves div")[0].textContent)
-					var moves2 = $("#move2").val($("#pokemoves div")[1].textContent);
-					// console.log(i)
-				}
+					$("#move1").val($("#pokemoves div")[0].textContent);
+
+					$("#move2").val($("#pokemoves div")[1].textContent);
 
 				$("#killerhp").text(st.stats[5].base_stat)
-					// var count = st.stats[5].base_stat;
-					var count = 5;
+					var count = st.stats[5].base_stat;
 				$("#killer").on("click",function(){
 					count -= 1;
 					console.log(count);
 
 					if(count === 0){
 						$(this).prop("disabled",true);
-						// var butt = document.createElement("button");
-						// butt.name = "You win a card!";
-						// butt.className = "win";
-						// butt.innerHTML = butt.name;
 						$("#win").show();
 					}
 				})
@@ -211,26 +194,25 @@
 					$("#form").show();
 				})
 
-		
-							
-			$("#card").on("click", function(){
+				$("#card").on("click", function(){
 					$.ajax({
 						url: "/obtain_card",
 						type: "POST",
-						data: {name: $("#name").text(st.name),
-						spd: $("#spd").text(st.stats[0].base_stat[0].textContent),
-						spdef: $("#spdef").text(st.stats[1].base_stat[0].textContent),
-						spatk: $("#spatk").text(st.stats[2].base_stat[0].textContent),
-						def: $("#def").text(st.stats[3].base_stat[0].textContent),
-						atk: $("#atk").text(st.stats[4].base_stat[0].textContent),
-						hp: $("#hp").text(st.stats[5].base_stat[0].textContent),
-						move1: $("#moveset1").text($("#pokemoves div")[0].textContent),
-						move2: $("#moveset2").text($("#pokemoves div")[1].textContent),
+						data: {name: st.name,
+						spd: st.stats[0].base_stat,
+						spdef: st.stats[1].base_stat,
+						spatk: st.stats[2].base_stat,
+						def: st.stats[3].base_stat,
+						atk: st.stats[4].base_stat,
+						hp: st.stats[5].base_stat,
+						move1: $("#pokemoves div")[0],
+						move2: $("#pokemoves div")[1],
 						"authenticity_token": "<%= form_authenticity_token %>"
 					},
 						dataType: "json",
 						success: function(data){
 							console.log("I am here in ajax data!");
+							
 						}
 					})
 				})		
@@ -240,10 +222,8 @@
 
 
 
-
-
-	$(".block").draggable({helper:"clone"});
-	$("#main").droppable(
+$(".block").draggable({helper:"clone"});
+$("#main").droppable(
 	{
 		accept:".block",
 		drop: function(ev,ui) {
@@ -255,8 +235,4 @@
 
 </script>
 
-<% else %>
-<h1>Welcome to MonMon</h1>
-<%= link_to "Log in", "/sign_in"%>
-<%= link_to "Sign up", "/sign_up"%>
 <% end %>

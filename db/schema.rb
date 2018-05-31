@@ -10,25 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180529115732) do
+ActiveRecord::Schema.define(version: 20180531044325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cards", force: :cascade do |t|
+  create_table "authentications", force: :cascade do |t|
+    t.string "uid"
+    t.string "token"
+    t.string "provider"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.integer "level"
-    t.bigint "deck_id"
-    t.index ["deck_id"], name: "index_cards_on_deck_id"
+    t.index ["user_id"], name: "index_authentications_on_user_id"
   end
 
   create_table "decks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
     t.bigint "user_id"
+    t.string "deck_name"
     t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
@@ -65,9 +66,9 @@ ActiveRecord::Schema.define(version: 20180529115732) do
     t.integer "hp"
     t.string "move1"
     t.string "move2"
-    t.bigint "card_id"
     t.string "name"
-    t.index ["card_id"], name: "index_monsters_on_card_id"
+    t.bigint "deck_id"
+    t.index ["deck_id"], name: "index_monsters_on_deck_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,4 +83,6 @@ ActiveRecord::Schema.define(version: 20180529115732) do
     t.index ["gamers_id"], name: "index_users_on_gamers_id"
   end
 
+  add_foreign_key "authentications", "users"
+  add_foreign_key "monsters", "decks"
 end
